@@ -1,1 +1,1 @@
-RUST_GOT_PRACTICE
+rustの練習用のブランチ
