@@ -1,12 +1,15 @@
+#[derive(Debug)]
+
 struct Stack {
-    top: usize, 
-    array: [i32; 10],
+    top: usize,
+    size: usize, 
+    stack: Vec<Option<i32>>,
 }
 
 impl Stack {
     fn push(&mut self, data: i32) {
-        if self.top < 10 {
-            self.array[self.top] = data;
+        if self.top < self.size {
+            self.stack.push(Some(data));
             self.top += 1;
         }
         else {
@@ -14,32 +17,42 @@ impl Stack {
         }
     }
 
-    fn pop(&mut self) -> i32 {
+    fn pop(&mut self) -> Option<i32> {
         if self.top > 0 {
             self.top -= 1;
-            return self.array[self.top];
+            return self.stack[self.top];
         }
         else {
             println!("Stack is empty");
-            return -1;
+            return None;
         }
     }
 
-    fn new() -> Stack {
+    fn new(size: usize) -> Stack {
         Stack {
             top: 0,
-            array: [0; 10]
+            size: size,
+            stack: Vec::new(),
         }
     }
 }
 
 fn main() {
-    let mut stack_a = Stack::new();
+    let mut stack_a = Stack::new(2);
     stack_a.push(1);
     stack_a.push(2);
     stack_a.push(3);
-    println!("{}", stack_a.pop());
-    println!("{}", stack_a.pop());
-    println!("{}", stack_a.pop());
-    println!("{}", stack_a.pop());
+    
+    match stack_a.pop() {
+        Some(data) => println!("{:?}", data),
+        None => (),
+    }
+    match stack_a.pop() {
+        Some(data) => println!("{:?}", data),
+        None => (),
+    }
+    match stack_a.pop() {
+        Some(data) => println!("{:?}", data),
+        None => (),
+    }
 }
