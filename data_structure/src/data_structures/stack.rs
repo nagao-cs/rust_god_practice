@@ -1,55 +1,40 @@
-pub struct Stack {
+pub struct Stack<T: Clone> {
     top: usize,
     size: usize, 
-    stack: Vec<Option<i32>>,
+    stack: Vec<Option<T>>,
 }
 
-impl Stack {
-    pub fn push(&mut self, data: i32) {
-        if self.is_full() {
-            println!("Stack is full");
-        }
-        else {
-            self.stack[self.top] = Some(data);
-            // self.stack.push(Some(data));
-            self.top += 1;
-        }
-    }
-
-    pub fn pop(&mut self) -> Option<i32> {
-        if self.is_empty() {
-            println!("Stack is empty");
-            return None;
-        }
-        else {
-            self.top -= 1;
-            return self.stack[self.top];
-        }
-    }
-
-    pub fn new(size: usize) -> Stack {
+impl<T: Clone> Stack<T> {
+    pub fn new(size: usize) -> Stack<T> {
         Stack {
             top: 0,
-            size: size,
+            size,
             stack: vec![None; size],
         }
     }
 
+    pub fn push(&mut self, data: T) -> Result<(), &str> {
+        if self.is_full() {
+            return Err("Stack is full");
+        }
+        self.stack[self.top] = Some(data);
+        self.top += 1;
+        Ok(())
+    }
+
+    pub fn pop(&mut self) -> Result<T, &str> {
+        if self.is_empty() {
+            return Err("Stack is empty");
+        }
+        self.top -= 1;
+        self.stack[self.top].take().ok_or("Stack is empty")
+    }
+
     fn is_full(&self) -> bool {
-        if self.top == self.size {
-            return true;
-        }
-        else {
-            return false;
-        }
+        self.top == self.size
     }
 
     fn is_empty(&self) -> bool {
-        if self.top == 0 {
-            return true;
-        }
-        else {
-            return false;
-        }
+        self.top == 0
     }
 }

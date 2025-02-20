@@ -15,7 +15,7 @@ fn main() {
     println!("{:?}", stack_a.pop());
     println!("{:?}", stack_a.pop());
 
-    println!("Queue");
+    println!("\nQueue");
     let mut queue: Queue = Queue::new();
     queue.enqueue(1);
     queue.enqueue(2);
@@ -25,7 +25,7 @@ fn main() {
     println!("{}", queue.dequeue());
     println!("{}", queue.dequeue());
 
-    println!("linkedlist");
+    println!("\nlinkedlist");
     let mut list = LinkedList::new_list();
     list.insert_head(1);
     list.insert_head(2);
@@ -42,7 +42,7 @@ fn main() {
     }
     println!("{:?}", list);
 
-    println!("RingBuffer");
+    println!("\nRingBuffer");
     let mut ring_buffer = RingBuffer::new(3);
     ring_buffer.enqueue(1);
     ring_buffer.enqueue(2);
