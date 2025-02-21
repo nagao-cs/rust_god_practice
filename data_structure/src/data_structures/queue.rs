@@ -1,33 +1,32 @@
-pub struct Queue {
-    arr: [i32; 10],
+pub struct Queue<T: Clone> {
+    queue: Vec<Option<T>>,
     front: usize,
     rear: usize,
 }
 
-impl Queue {
-    pub fn new() -> Queue {
+impl<T: Clone> Queue<T> {
+    pub fn new(size: usize) -> Queue<T> {
         Queue {
-            arr: [0; 10],
+            queue: vec![None; size],
             front: 0,
             rear: 0,
         }
     }
 
-    pub fn enqueue(&mut self, d: i32) {
-        if self.rear > self.arr.len() -1 {
+    pub fn enqueue(&mut self, data: T) {
+        if self.rear > self.queue.len() -1 {
             println!("Queue overflow!");
         }
-        self.arr[self.rear] = d;
+        self.queue[self.rear] = Some(data);
         self.rear += 1;
     }
 
-    pub fn dequeue(&mut self) -> i32 {
+    pub fn dequeue(&mut self) -> Result<T, &str> {
         if self.front == self.rear {
-            println!("Queue underflow!");
-            return -1;
+            return Err("Queue underflow!");
         }
-        let x: i32 = self.arr[self.front];
+        let x = self.queue[self.front].take().ok_or("Queue underflow!");
         self.front += 1;
-        x
+        return x;
     }
 }

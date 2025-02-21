@@ -13,13 +13,13 @@ impl<T: Clone> Stack<T> {
         }
     }
 
-    pub fn push(&mut self, data: T) -> Result<(), &str> {
+    pub fn push(&mut self, data: T) {
         if self.is_full() {
-            return Err("Stack is full");
+            println!("Stack is full");
+            return;
         }
         self.stack[self.top] = Some(data);
         self.top += 1;
-        Ok(())
     }
 
     pub fn pop(&mut self) -> Result<T, &str> {

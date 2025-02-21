@@ -7,23 +7,23 @@ use data_structures::ring_buffer::RingBuffer;
 
 fn main() {
     println!("Stack");
-    let mut stack_a = Stack::new(2);
+    let mut stack_a: Stack<i32> = Stack::new(2);
     stack_a.push(1);
     stack_a.push(2);
     stack_a.push(3);
-    println!("{:?}", stack_a.pop());
-    println!("{:?}", stack_a.pop());
+    println!("{:?}", stack_a.pop().unwrap());
+    println!("{:?}", stack_a.pop().unwrap());
     println!("{:?}", stack_a.pop());
 
     println!("\nQueue");
-    let mut queue: Queue = Queue::new();
+    let mut queue: Queue<i32> = Queue::new(3);
     queue.enqueue(1);
     queue.enqueue(2);
     queue.enqueue(5);
-    println!("{}", queue.dequeue());
-    println!("{}", queue.dequeue());
-    println!("{}", queue.dequeue());
-    println!("{}", queue.dequeue());
+    println!("{}", queue.dequeue().unwrap());
+    println!("{}", queue.dequeue().unwrap());
+    println!("{}", queue.dequeue().unwrap());
+    println!("{:?}", queue.dequeue());
 
     println!("\nlinkedlist");
     let mut list = LinkedList::new_list();
