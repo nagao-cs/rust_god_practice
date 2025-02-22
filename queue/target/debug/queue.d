@@ -1,1 +1,1 @@
-/home/shimada/team/rust_god_practice/queue/target/debug/queue: /home/shimada/team/rust_god_practice/queue/src/main.rs
+/home/smd/study/rust_god_practice/queue/target/debug/queue: /home/smd/study/rust_god_practice/queue/src/main.rs
