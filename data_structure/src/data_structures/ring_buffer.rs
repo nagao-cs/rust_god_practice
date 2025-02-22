@@ -15,13 +15,14 @@ impl RingBuffer {
         }
     }
 
-    pub fn enqueue(&mut self, data: i32) {
+    pub fn enqueue(&mut self, data: i32) -> Result<(), &str> {
         if self.rear - self.front == self.size {
-            println!("Ring buffer is full");
+            return Err("Ring buffer is full");
         }
         else {
             self.buffer[self.rear % self.size] = Some(data);
             self.rear += 1;
+            return Ok(());
         }
     }
 

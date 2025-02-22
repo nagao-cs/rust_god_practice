@@ -15,8 +15,7 @@ impl<T: Clone> Stack<T> {
 
     pub fn push(&mut self, data: T) {
         if self.is_full() {
-            println!("Stack is full");
-            return;
+            println!("Stack overflow!");
         }
         self.stack[self.top] = Some(data);
         self.top += 1;
