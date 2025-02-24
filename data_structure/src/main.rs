@@ -4,6 +4,7 @@ use data_structures::stack::Stack;
 use data_structures::queue::Queue;
 use data_structures::linkedlist::LinkedList;
 use data_structures::ring_buffer::RingBuffer;
+use data_structures::tree::Tree;
 
 #[cfg(test)]
 mod stack_tests {
@@ -127,5 +128,66 @@ mod ring_buffer_tests {
         test_ring_buffer.dequeue().unwrap();
         test_ring_buffer.dequeue().unwrap();
         test_ring_buffer.dequeue().unwrap();
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_new_tree() {
+        let tree = Tree::new(10);
+        assert_eq!(tree.get_label(), &10);
+        assert!(tree.get_left().is_none());
+        assert!(tree.get_right().is_none());
+    }
+
+    #[test]
+    fn test_insert_left() {
+        let mut tree = Tree::new(10);
+        tree.insert(5);
+        assert!(tree.get_left().is_some());
+        assert_eq!(tree.get_left().unwrap().get_label(), &5);
+    }
+
+    #[test]
+    fn test_insert_right() {
+        let mut tree = Tree::new(10);
+        tree.insert(15);
+        assert!(tree.get_right().is_some());
+        assert_eq!(tree.get_right().unwrap().get_label(), &15);
+    }
+
+    #[test]
+    fn test_insert() {
+        let mut tree = Tree::new(10);
+        tree.insert(5);
+        tree.insert(15);
+        tree.insert(3);
+        tree.insert(7);
+        tree.insert(12);
+        tree.insert(18);
+
+        assert_eq!(tree.get_left().unwrap().get_label(), &5);
+        assert_eq!(tree.get_left().unwrap().get_left().unwrap().get_label(), &3);
+        assert_eq!(tree.get_left().unwrap().get_right().unwrap().get_label(), &7);
+
+        assert_eq!(tree.get_right().unwrap().get_label(), &15);
+        assert_eq!(tree.get_right().unwrap().get_left().unwrap().get_label(), &12);
+        assert_eq!(tree.get_right().unwrap().get_right().unwrap().get_label(), &18);
+    }
+
+    #[test]
+    fn test_print() {
+        let mut tree = Tree::new(10);
+        tree.insert(5);
+        tree.insert(15);
+        tree.insert(3);
+        tree.insert(7);
+        tree.insert(12);
+        tree.insert(18);
+
+        tree.print();
     }
 }
