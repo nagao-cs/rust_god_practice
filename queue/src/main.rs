@@ -1,45 +1,41 @@
-struct Queue {
-    arr: [i32; 10],
+struct Queue<T> {
+    arr: Vec<T>,
     front: usize,
     rear: usize,
 }
 
-impl Queue {
-    fn new() -> Queue {
+impl<T> Queue<T> {
+    fn new() -> Self {
         Queue {
-            arr: [0; 10],
+            arr: Vec::new(),
             front: 0,
             rear: 0,
         }
     }
 
-    fn enqueue(&mut self, d: i32) {
-        if self.rear > self.arr.len() -1 {
-            println!("Queue overflow!");
-        }
-        self.arr[self.rear] = d;
+    fn enqueue(&mut self, d: T) {
+        self.arr.push(d);
         self.rear += 1;
     }
 
-    fn dequeue(&mut self) -> i32 {
-        if self.front == self.rear {
+    fn dequeue(&mut self) -> Option<T> {
+        if self.arr.is_empty() {
             println!("Queue underflow!");
-            return -1;
+            None
+        } else {
+            Some(self.arr.remove(0))
         }
-        let x: i32 = self.arr[self.front];
-        self.front += 1;
-        x
     }
-}
+} 
 
 fn main() {
-    let mut queue: Queue = Queue::new();
+    let mut queue = Queue::new();
 
     queue.enqueue(1);
     queue.enqueue(2);
     queue.enqueue(5);
-    println!("{}", queue.dequeue());
-    println!("{}", queue.dequeue());
-    println!("{}", queue.dequeue());
-    println!("{}", queue.dequeue());
+    println!("{:?}", queue.dequeue());
+    println!("{:?}", queue.dequeue());
+    println!("{:?}", queue.dequeue());
+    println!("{:?}", queue.dequeue());
 }
