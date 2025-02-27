@@ -1,20 +1,20 @@
 #[derive(Debug)]
-struct LinkedList {
-    head: Option<Box<Cell>>
+struct LinkedList<T> {
+    head: Option<Box<Cell<T>>>
 }
 #[derive(Debug)]
-struct Cell {
-    data: i32,
-    next: Option<Box<Cell>>
+struct Cell<T> {
+    data: T,
+    next: Option<Box<Cell<T>>>
 }
 
-impl LinkedList {
+impl<T: std::cmp::PartialEq> LinkedList<T> {
     fn new_list() -> Self {
         Self {
             head: None
         }
     }
-    fn insert_head(&mut self, d: i32) {
+    fn insert_head(&mut self, d: T) {
         let head_cell = Box::new(Cell {
             data: d,
             next: self.head.take(),
@@ -27,7 +27,7 @@ impl LinkedList {
         }
     }
 
-    fn search_cell(&mut self, d: i32) -> Option<&mut Cell> {
+    fn search_cell(&mut self, d: T) -> Option<&mut Cell<T>> {
         let mut current = self.head.as_deref_mut();
         while let Some(cell) = current {
             if cell.data == d {
@@ -39,8 +39,8 @@ impl LinkedList {
     }
 }
 
-impl Cell {
-    fn insert(&mut self, d: i32) {
+impl<T> Cell<T> {
+    fn insert(&mut self, d: T) {
         let new_cell = Box::new(Cell {
             data: d,
             next: self.next.take()
@@ -65,6 +65,9 @@ fn main() {
     list.insert_head(3);
     println!("{:?}", list);
 
+    list.delete_top();
+    println!("{:?}", list);
+
     if let Some(cell) = list.search_cell(2) {
         cell.insert(9);
     }
@@ -74,5 +77,5 @@ fn main() {
         cell.delete();
     }
     println!("{:?}", list);
-    
 }
+
