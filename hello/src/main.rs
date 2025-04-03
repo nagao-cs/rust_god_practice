@@ -1,11 +1,17 @@
+use std::fmt::{Display, Formatter};
+
 fn main() {
-    let v = [3, 8, 11, 15];
-    let mut result = 0;
-    for x in v.iter() {
-        if *x % 2 == 0 {
-            continue;
-        }
-        result += *x;
+struct ImaginaryNumber {
+    real:   f64,
+    img:    f64,
+}
+
+impl Display for ImaginaryNumber {
+    fn fmt(&self, f: &mut Formatter) -> Result<(), std::fmt::Error> {
+        write!(f, "{} + {}i", self.real, self.img)
     }
-    println!("{}", result);
+}
+
+let n = ImaginaryNumber {real: 3.0, img: 4.0};
+println!("{n}");
 }
